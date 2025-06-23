@@ -10,5 +10,6 @@ properties:
   smsAddress:
     type: string
   slackHook:
-    type: string
-    format: nullable
+    type:
+      - string
+      - 'null'
