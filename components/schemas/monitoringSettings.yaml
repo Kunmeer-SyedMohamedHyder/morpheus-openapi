@@ -43,51 +43,41 @@ properties:
             type: string
             description: Service Now Integration Name
       newIncidentAction:
+        type: string
         description: New Incident Action
-        oneOf:
-          - type: string
-            example: create
-            enum:
-              - create
-              - none
-          - type: 'null'
+        example: create
+        enum:
+          - create
+          - none
       closeIncidentAction:
+        type: string
         description: Close Incident Action
-        oneOf:
-          - type: string
-            example: close
-            enum:
-              - close
-              - activity
-              - none
-          - type: 'null'
+        example: close
+        enum:
+          - close
+          - activity
+          - none
       infoMapping:
+        type: string
         description: Info Mapping
-        oneOf:
-          - type: string
-            example: low
-            enum:
-              - low
-              - medium
-              - high
-          - type: 'null'
+        example: low
+        enum:
+          - low
+          - medium
+          - high
       warningMapping:
+        type: string
         description: Warning Mapping
-        oneOf:
-          - type: string
-            example: medium
-            enum:
-              - low
-              - medium
-              - high
-          - type: 'null'
+        example: medium
+        enum:
+          - low
+          - medium
+          - high
       criticalMapping:
+        type: string
         description: Critical Mapping
-        oneOf:
-          - type: string
-            example: high
-            enum:
-              - low
-              - medium
-              - high
-          - type: 'null'
+        example: high
+        enum:
+          - low
+          - medium
+          - high

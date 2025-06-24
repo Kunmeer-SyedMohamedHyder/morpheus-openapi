@@ -60,27 +60,23 @@ properties:
       - 'null'
     description: Tenant Match
   serviceMode:
+    type: string
     description: IP Mode
+    default: static
     example: static
-    oneOf:
-      - type: string
-        default: static
-        enum:
-          - static
-          - dhcp
-      - type: 'null'
+    enum:
+      - static
+      - dhcp
   config:
     type: object
     properties:
       inventoryExisting:
+        type: string
         description: Inventory Existing
-        oneOf:
-          - type: string
-            default: "off"
-            enum:
-              - "on"
-              - "off"
-          - type: 'null'
+        default: "off"
+        enum:
+          - "on"
+          - "off"
       extraAttributes:
         type:
           - string

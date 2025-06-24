@@ -75,12 +75,10 @@ properties:
       - string
       - 'null'
   formType:
-    oneOf:
-      - type: string
-        enum:
-          - optionTypes
-          - form
-      - type: 'null'
+    type: string
+    enum:
+      - optionTypes
+      - form
   form:
     type:
       - object
