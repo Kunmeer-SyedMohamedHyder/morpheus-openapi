@@ -188,7 +188,7 @@ post:
                   enum:
                     - full
                     - none
-                instanceTypes:
+                instanceTypePermissions:
                   type: array
                   description: Set the access level for the specified instance types
                   items:
@@ -211,7 +211,7 @@ post:
                   enum:
                     - full
                     - none
-                appTemplates:
+                appTemplatePermissions:
                   type: array
                   description: Set the access level for the specified blueprints (appTemplates)
                   items:
@@ -234,7 +234,7 @@ post:
                   enum:
                     - full
                     - none
-                catalogItemTypes:
+                catalogItemTypePermissions:
                   type: array
                   description: Set the access level for the specified catalog item types
                   items:
@@ -257,7 +257,7 @@ post:
                   enum:
                     - full
                     - none
-                personas:
+                personaPermissions:
                   type: array
                   description: Set the access level for the specified personas
                   items:
@@ -284,7 +284,7 @@ post:
                   enum:
                     - full
                     - none
-                vdiPools:
+                vdiPoolPermissions:
                   type: array
                   description: Set the access level for the specified VDI pools
                   items:
@@ -307,7 +307,7 @@ post:
                   enum:
                     - full
                     - none
-                reportTypes:
+                reportTypePermissions:
                   type: array
                   description: Set the access level for the specified report types
                   items:
@@ -330,7 +330,7 @@ post:
                   enum:
                     - full
                     - none
-                tasks:
+                taskPermissions:
                   type: array
                   description: Set the access level for the specified tasks
                   items:
@@ -353,7 +353,7 @@ post:
                   enum:
                     - full
                     - none
-                taskSets:
+                taskSetPermissions:
                   type: array
                   description: Set the access level for the specified workflows (taskSets)
                   items:

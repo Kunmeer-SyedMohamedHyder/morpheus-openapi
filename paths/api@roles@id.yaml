@@ -65,7 +65,7 @@ put:
                         - vdi
                     - type: 'null'
                   description: Set the default persona by code.
-                permissions:
+                featurePermissions:
                   type: array
                   description: Set the access level for the specified permissions.
                   items:
@@ -144,7 +144,7 @@ put:
                   enum:
                     - full
                     - none
-                instanceTypes:
+                instanceTypePermissions:
                   type: array
                   description: Set the access level for the specified instance types
                   items:
@@ -167,7 +167,7 @@ put:
                   enum:
                     - full
                     - none
-                appTemplates:
+                appTemplatePermissions:
                   type: array
                   description: Set the access level for the specified blueprints (appTemplates)
                   items:
@@ -190,7 +190,7 @@ put:
                   enum:
                     - full
                     - none
-                catalogItemTypes:
+                catalogItemTypePermissions:
                   type: array
                   description: Set the access level for the specified catalog item types
                   items:
@@ -213,7 +213,7 @@ put:
                   enum:
                     - full
                     - none
-                personas:
+                personaPermissions:
                   type: array
                   description: Set the access level for the specified personas
                   items:
@@ -240,7 +240,7 @@ put:
                   enum:
                     - full
                     - none
-                vdiPools:
+                vdiPoolPermissions:
                   type: array
                   description: Set the access level for the specified VDI pools
                   items:
@@ -263,7 +263,7 @@ put:
                   enum:
                     - full
                     - none
-                reportTypes:
+                reportTypePermissions:
                   type: array
                   description: Set the access level for the specified report types
                   items:
@@ -286,7 +286,7 @@ put:
                   enum:
                     - full
                     - none
-                tasks:
+                taskPermissions:
                   type: array
                   description: Set the access level for the specified tasks
                   items:
@@ -309,7 +309,7 @@ put:
                   enum:
                     - full
                     - none
-                taskSets:
+                taskSetPermissions:
                   type: array
                   description: Set the access level for the specified workflows (taskSets)
                   items:
