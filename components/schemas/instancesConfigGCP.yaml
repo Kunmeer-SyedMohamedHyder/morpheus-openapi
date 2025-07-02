@@ -1,3 +1,4 @@
+title: Google Cloud Instance Configuration
 type: object
 properties:
   noAgent:

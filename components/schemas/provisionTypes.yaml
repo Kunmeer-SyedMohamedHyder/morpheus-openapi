@@ -81,6 +81,10 @@ properties:
     type: boolean
   hasSnapshots:
     type: boolean
+  hasMemorySnapshots:
+    type: boolean
+  hasSpecTemplates:
+    type: boolean
   hasSpecTemplates:
     type: boolean
   hasPreview:

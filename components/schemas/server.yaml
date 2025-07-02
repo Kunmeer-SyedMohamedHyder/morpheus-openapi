@@ -554,7 +554,26 @@ properties:
           - integer
           - 'null'
         format: int64
-  guestConsolePreferred:
+  instance: 
+    type:
+      - object
+      - 'null'
+    properties:
+      id: 
+        type: integer
+        format: int64
+      name: 
+        type: string
+      displayName: 
+        type: string
+      isVpcSelectable: 
+        type: boolean
+      accountId: 
+        type: integer
+        format: int64
+      accountName: 
+        type: string
+  guestConsolePreferred: 
     type: boolean
   guestConsoleType:
     type:
