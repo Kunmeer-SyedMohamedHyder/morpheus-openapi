@@ -4,11 +4,8 @@ put:
   operationId: detachServerVolume
   tags:
     - Storage
-    - Volumes
-    - Server
-    - Detach
   parameters:
-    - name: serverId
+    - name: id
       in: path
       required: true
       schema:

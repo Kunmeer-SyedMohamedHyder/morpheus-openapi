@@ -1,0 +1,190 @@
+type: object
+properties:
+  id:
+    type: integer
+    format: int64
+  name:
+    type: string
+  code:
+    type: string
+  active:
+    type: boolean
+  sortOrder:
+    type: integer
+    format: int64
+  description:
+    type: string
+  maxStorage:
+    type: number
+  maxMemory:
+    type: number
+  maxCpu:
+    type:
+      - number
+      - 'null'
+  maxCores:
+    type:
+      - number
+      - 'null'
+  maxDisks:
+    type:
+      - number
+      - 'null'
+  coresPerSocket:
+    type: number
+  customCpu:
+    type: boolean
+  customCores:
+    type: boolean
+  customMaxStorage:
+    type:
+      - boolean
+      - 'null'
+  customMaxDataStorage:
+    type:
+      - boolean
+      - 'null'
+  customMaxMemory:
+    type:
+      - boolean
+      - 'null'
+  addVolumes:
+    type:
+      - boolean
+      - 'null'
+  memoryOptionSource:
+    type:
+      - string
+      - 'null'
+  cpuOptionSource:
+    type:
+      - string
+      - 'null'
+  dateCreated:
+    type: string
+    format: date-time
+  lastUpdated:
+    type: string
+    format: date-time
+  regionCode:
+    type:
+      - string
+      - 'null'
+  visibility:
+    type: string
+  editable:
+    type: boolean
+  provisionType:
+    type: object
+    properties:
+      id:
+        type: integer
+        format: int64
+      name:
+        type: string
+      code:
+        type: string
+      rootDiskCustomizable:
+        type: boolean
+      addVolumes:
+        type: boolean
+      customizeVolume:
+        type: boolean
+      hasConfigurableCpuSockets:
+        type: boolean
+  tenants:
+    type: string
+  priceSets:
+    type:
+      - array
+      - 'null'
+    items:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        name:
+          type: string
+        code:
+          type: string
+        priceUnit:
+          type: string
+  config:
+    type:
+      - object
+      - 'null'
+    properties:
+      storageSizeType:
+        type:
+          - string
+          - 'null'
+      memorySizeType:
+        type:
+          - string
+          - 'null'
+      ranges:
+        type:
+          - object
+          - 'null'
+        properties:
+          minStorage:
+            type:
+              - string
+              - 'null'
+          maxStorage:
+            type:
+              - string
+              - 'null'
+          minPerDiskSize:
+            type:
+              - string
+              - 'null'
+          maxPerDiskSize:
+            type:
+              - string
+              - 'null'
+          minMemory:
+            type:
+              - number
+              - 'null'
+          maxMemory:
+            type:
+              - number
+              - 'null'
+          minCores:
+            type:
+              - string
+              - 'null'
+          maxCores:
+            type:
+              - string
+              - 'null'
+          minSockets:
+            type:
+              - string
+              - 'null'
+          maxSockets:
+            type:
+              - string
+              - 'null'
+          minCoresPerSocket:
+            type:
+              - string
+              - 'null'
+          maxCoresPerSocket:
+            type:
+              - string
+              - 'null'
+  zones:
+    type: array
+    items:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        name:
+          type: string
+        code:
+          type: string
