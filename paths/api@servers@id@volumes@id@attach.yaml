@@ -47,6 +47,10 @@ put:
               required:
                 - controller
                 - unitNumber
+            rootVolume:
+              type: boolean
+              description: Attach as root volume
+              required: false
           required:
             - mountPoint
         examples:
