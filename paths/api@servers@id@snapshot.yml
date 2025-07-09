@@ -1,0 +1,41 @@
+put:
+  summary: Snapshot a Host
+  description: This endpoint will create a snapshot of a host. This is done asychronously, so the ID of the snapshot is not returned.
+  operationId: snapshotHost
+  tags:
+    - Hosts
+  parameters:
+    - $ref: ../components/parameters/id-path.yaml
+  requestBody: 
+    content: 
+      application/json: 
+        schema:
+          $ref: ../components/schemas/instanceSnapshot.yaml
+        examples:
+          Snapshot Request:
+            value:
+              $ref: ../components/examples/serverSnapshot.json
+  responses:
+    '200':
+      description: Successful Request
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              success: 
+                type: boolean
+              processIds: 
+                type: array
+                description: Process ID(s) to track execution results with, use `/api/processes/$processId`.
+                items: 
+                  type: integer
+                  format: int64
+          examples:
+            Response:
+              value:
+                $ref: ../components/examples/createSnapshot.json 
+    '4XX':
+      $ref: ../components/responses/4xx.yaml
+    '5XX':
+      $ref: ../components/responses/5xx.yaml
