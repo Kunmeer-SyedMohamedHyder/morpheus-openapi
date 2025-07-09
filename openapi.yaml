@@ -1012,6 +1012,8 @@ paths:
     $ref: paths/api@servers@id@make-managed.yaml
   /api/servers/{id}/resize:
     $ref: paths/api@servers@id@resize.yaml
+  /api/servers/{id}/snapshot:
+    $ref: paths/api@servers@id@snapshot.yaml
   /api/servers/{id}/snapshots:
     $ref: paths/api@servers@id@snapshots.yaml
   /api/servers/{id}/start:
