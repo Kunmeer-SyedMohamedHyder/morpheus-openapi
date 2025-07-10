@@ -6,6 +6,20 @@ put:
     - Instances
   parameters:
     - $ref: ../components/parameters/id-path.yaml
+    - name: server
+      in: query
+      description: Stop the underlying server as well by passing `true`. By default only the service will be stopped.
+      required: false
+      schema:
+        type: boolean
+        default: false
+    - name: muteMonitoring
+      in: query
+      description: Mute monitoring checks for the instance by passing `true`.
+      required: false
+      schema:
+        type: boolean
+        default: false
   responses:
     '200':
       description: Successful Request

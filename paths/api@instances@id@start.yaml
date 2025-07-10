@@ -6,6 +6,13 @@ put:
     - Instances
   parameters:
     - $ref: ../components/parameters/id-path.yaml
+    - name: server
+      in: query
+      description: Start the underlying server as well by passing `true`. By default only the service will be started.
+      required: false
+      schema:
+        type: boolean
+        default: false
   responses:
     '200':
       description: Successful Request
