@@ -1,6 +1,6 @@
 put:
   summary: Stop an instance
-  description: This will stop all containers running within an instance.
+  description: This will stop the service for all containers within an instance. To stop the underlying server(s) as well you must include the query parameter `server=true`.
   operationId: stopInstance
   tags:
     - Instances
@@ -8,7 +8,7 @@ put:
     - $ref: ../components/parameters/id-path.yaml
     - name: server
       in: query
-      description: Stop the underlying server as well by passing `true`. By default only the service will be stopped.
+      description: Stop the underlying server(s) as well by passing `true`. By default only the service will be stopped.
       required: false
       schema:
         type: boolean
