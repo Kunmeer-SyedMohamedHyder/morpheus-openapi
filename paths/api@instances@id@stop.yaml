@@ -12,7 +12,7 @@ put:
       required: false
       schema:
         type: boolean
-        default: false
+        default: true
     - name: muteMonitoring
       in: query
       description: Mute monitoring checks for the instance by passing `true`.

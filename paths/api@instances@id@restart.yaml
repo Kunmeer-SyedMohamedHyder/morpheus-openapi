@@ -12,7 +12,7 @@ put:
       required: false
       schema:
         type: boolean
-        default: false
+        default: true
   responses:
     '200':
       description: Successful Request
