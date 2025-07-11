@@ -16,5 +16,5 @@ properties:
         default: false
       forExport:
         type: boolean
-        description: For Export? Indicates the snapshot is intended for export to storage. Only supported by certain provision types such as HVM
+        description: For Export? Indicates the snapshot is intended for export to storage.
         default: false
