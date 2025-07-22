@@ -28,7 +28,7 @@ get:
 put:
   summary: Update user
   description: Update an existing user.
-  operationId: updateUsers
+  operationId: updateUser
   tags:
     - Users
   parameters:
@@ -45,14 +45,41 @@ put:
               type: object
               properties:
                 firstName:
-                  type: string
+                  type:
+                    - 'null'
+                    - string
                   description: First Name
                 lastName:
-                  type: string
+                  type:
+                    - 'null'
+                    - string
                   description: Last Name
                 username:
                   type: string
                   description: Username (unique per tenant).
+                linuxUsername:
+                  type:
+                    - 'null'
+                    - string
+                linuxPassword:
+                  type:
+                    - 'null'
+                    - string
+                  format: password
+                linuxKeyPairId:
+                  format: int64
+                  type:
+                    - 'null'
+                    - integer
+                windowsUsername:
+                  type:
+                    - 'null'
+                    - string
+                windowsPassword:
+                  type:
+                    - 'null'
+                    - string
+                  format: password
                 email:
                   type: string
                   description: Email address
