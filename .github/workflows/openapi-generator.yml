@@ -1,7 +1,7 @@
 name: OpenAPI Generator Validate and Generate
 on: [pull_request, push, workflow_dispatch]
 jobs:
-  openapi-generator-go:
+  openapi-generator-python:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -17,19 +17,23 @@ jobs:
           JAVA_OPTS: -DmaxYamlCodePoints=99999999 # Required or else openapi-generator will run out of memory
       - name: OpenAPI Generator Generate - Setup
         run: |
-          mkdir client-go
-          cp .openapi-generator/.openapi-generator-ignore client-go
+          mkdir client-python
+          cp .openapi-generator/.openapi-generator-ignore client-python
       - name: OpenAPI Generator Generate
         uses: docker://openapitools/openapi-generator-cli:latest
         with:
-          args: generate -i bundle.yaml -g go -t .openapi-generator/go/templates -o client-go
+          args: generate -i bundle.yaml -g python -o client-python
         env:
           JAVA_OPTS: -DmaxYamlCodePoints=99999999 # Required or else openapi-generator will run out of memory
       - name: List Contents of Generated Client
         run: |
-          find client-go
-      - name: Go Build
-        uses: docker://golang:alpine
+          find client-python
+      - name: Python Setup
+        uses: actions/setup-python@v4
         with:
-          entrypoint: sh
-          args: -c "cd client-go && go build"
+          python-version: '3.x'
+      - name: Python Build and Test
+        run: |
+          cd client-python
+          pip install -r requirements.txt
+          python setup.py build

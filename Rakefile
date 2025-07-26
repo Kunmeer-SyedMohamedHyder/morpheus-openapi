@@ -9,7 +9,7 @@ task :test => ["docker:lint"]
 desc "Builds bundled.yaml with redocly via docker "
 task :build => ["docker:build"]
 
-desc "Generates a Go client with OpenAPI Generator via docker"
+desc "Generates a Python client with OpenAPI Generator via docker"
 task :generate => ["docker:generate"]
 
 namespace "docker" do
@@ -50,12 +50,13 @@ namespace "docker" do
   # desc "Executes openapitools/openapi-generator-cli using docker"
   task :generate => [:is_installed, :build] do
     cd PROJECT_ROOT, verbose: false do
-      sh("mkdir -p generated/client-go && \
-      cp .openapi-generator/.openapi-generator-ignore generated/client-go && \
+      sh("mkdir -p generated/morpheus-python-sdk && \
+      cp .openapi-generator/.openapi-generator-ignore generated/morpheus-python-sdk && \
       docker run -v $PWD:/spec -it \
       -e JAVA_OPTS=-DmaxYamlCodePoints=999999999 \
       openapitools/openapi-generator-cli \
-      generate -g go -i /spec/bundled.yaml -t /spec/.openapi-generator/go/templates -o /spec/generated/client-go")
+      generate -g python -i /spec/bundled.yaml -o /spec/generated/morpheus-python-sdk \
+      -c /spec/.openapi-generator/python-config.json")
     end
   end
 
