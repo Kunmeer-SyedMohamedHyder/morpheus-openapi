@@ -3,6 +3,7 @@
 # Variables
 PROJECT_ROOT := $(shell git rev-parse --show-toplevel)
 BUILD_DIR := $(PROJECT_ROOT)/build
+VERSION ?= 1.0.0
 
 # Default target
 .DEFAULT_GOAL := help
@@ -11,12 +12,17 @@ BUILD_DIR := $(PROJECT_ROOT)/build
 .PHONY: help
 help: ## Show this help message
 	@echo "Available targets:"
-	@echo "  test      - Test that the openapi schema is valid by executing lint commands via docker"
-	@echo "  build     - Builds bundled.yaml with redocly via docker"
-	@echo "  generate  - Generates a Python client with OpenAPI Generator via docker"
-	@echo "  lint      - Validate the openapi schema with both redocly and spectral"
-	@echo "  clean     - Clean generated files"
-	@echo "  help      - Show this help message"
+	@echo "  test                - Test that the openapi schema is valid by executing lint commands via docker"
+	@echo "  build               - Builds bundled.yaml with redocly via docker"
+	@echo "  generate            - Generates a Python client with OpenAPI Generator via docker"
+	@echo "  python-client       - Alias for generate target"
+	@echo "  lint                - Validate the openapi schema with both redocly and spectral"
+	@echo "  clean               - Clean generated files"
+	@echo "  help                - Show this help message"
+	@echo ""
+	@echo "Examples:"
+	@echo "  make generate"
+	@echo "  make python-client"
 
 # Check if docker is installed (cross-platform)
 .PHONY: check-docker
@@ -68,7 +74,7 @@ endif
 # Generate target - equivalent to rake generate
 .PHONY: generate
 generate: check-docker build ## Generates a Python client with OpenAPI Generator via docker
-	@echo "Generating Python client..."
+	@echo "Generating Python SDK..."
 ifeq ($(OS),Windows_NT)
 	@if not exist "generated\morpheus-python-sdk" mkdir "generated\morpheus-python-sdk"
 	@copy ".openapi-generator\.openapi-generator-ignore" "generated\morpheus-python-sdk\" >nul
@@ -80,7 +86,12 @@ endif
 		-e JAVA_OPTS=-DmaxYamlCodePoints=999999999 \
 		openapitools/openapi-generator-cli \
 		generate -g python -i /spec/bundled.yaml -o /spec/generated/morpheus-python-sdk \
-		-c /spec/.openapi-generator/python-config.json
+		-c /spec/.openapi-generator/python-config.yaml
+	@echo "Python SDK generated successfully"
+
+# Python client target - alias for generate
+.PHONY: python-client
+python-client: clean generate
 
 # Clean target - remove generated files
 .PHONY: clean

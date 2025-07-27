@@ -1,0 +1,160 @@
+name: Manual SDK Generation and Push
+
+on:
+  workflow_dispatch:
+    inputs:
+      version:
+        description: 'Version number (e.g., 1.1.0)'
+        required: true
+        default: '1.0.0'
+      create_release:
+        description: 'Create a GitHub release'
+        required: false
+        default: true
+        type: boolean
+
+jobs:
+  generate-sdk:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout morpheus-openapi repository
+      uses: actions/checkout@v4
+      with:
+        fetch-depth: 0
+    
+    - name: Set up Java (for OpenAPI Generator)
+      uses: actions/setup-java@v4
+      with:
+        distribution: 'temurin'
+        java-version: '17'
+    
+    - name: Set up Ruby (for Rake)
+      uses: ruby/setup-ruby@v1
+      with:
+        ruby-version: '3.1'
+        bundler-cache: true
+    
+    - name: Install OpenAPI Generator
+      run: |
+        wget https://repo1.maven.org/maven2/org/openapitools/openapi-generator-cli/7.14.0/openapi-generator-cli-7.14.0.jar -O openapi-generator-cli.jar
+        chmod +x openapi-generator-cli.jar
+    
+    - name: Generate Python SDK
+      run: |
+        # Clean any existing generated directory
+        rm -rf generated/
+        
+        # Generate the Python SDK
+        rake python-client
+        
+        # Navigate to generated SDK
+        cd generated/morpheus-python-sdk
+        
+        # Update version in files
+        sed -i "s/VERSION = \"1.0.0\"/VERSION = \"${{ github.event.inputs.version }}\"/g" setup.py
+        sed -i "s/version = \"1.0.0\"/version = \"${{ github.event.inputs.version }}\"/g" pyproject.toml
+        sed -i "s/__version__ = \"1.0.0\"/__version__ = \"${{ github.event.inputs.version }}\"/g" morpheus/__init__.py
+    
+    - name: Checkout target repository
+      uses: actions/checkout@v4
+      with:
+        repository: hpe-hcss/morpheus-python-sdk
+        token: ${{ secrets.PYTHON_SDK_TOKEN }}
+        path: target-repo
+        fetch-depth: 0
+    
+    - name: Configure Git
+      run: |
+        cd target-repo
+        git config user.name "GitHub Actions Bot"
+        git config user.email "actions@github.com"
+    
+    - name: Copy generated files to target repository
+      run: |
+        cd target-repo
+        
+        # Backup important files
+        cp README.md README.md.backup 2>/dev/null || true
+        cp LICENSE LICENSE.backup 2>/dev/null || true
+        
+        # Remove existing Python SDK files but keep git and important files
+        find . -maxdepth 1 \( -name ".git*" -o -name "README.md*" -o -name "LICENSE*" \) -prune -o -type f -delete
+        find . -maxdepth 1 \( -name ".git*" -o -name "README.md*" -o -name "LICENSE*" \) -prune -o -type d -exec rm -rf {} + 2>/dev/null || true
+        
+        # Copy all generated files
+        cp -r ../generated/morpheus-python-sdk/* . 2>/dev/null || true
+        
+        # Restore important files if they were backed up and the generated version doesn't exist
+        if [ -f "README.md.backup" ] && [ ! -f "README.md" ]; then
+          mv README.md.backup README.md
+        else
+          rm -f README.md.backup
+        fi
+        
+        if [ -f "LICENSE.backup" ] && [ ! -f "LICENSE" ]; then
+          mv LICENSE.backup LICENSE
+        else
+          rm -f LICENSE.backup
+        fi
+    
+    - name: Commit and push changes
+      run: |
+        cd target-repo
+        
+        # Add all files
+        git add .
+        
+        # Check if there are changes to commit
+        if git diff --staged --quiet; then
+          echo "No changes to commit"
+          exit 0
+        fi
+        
+        # Commit changes
+        git commit -m "chore: update to v${{ github.event.inputs.version }}
+
+        Manual generation from morpheus-openapi repository
+        
+        - Updated to version ${{ github.event.inputs.version }}
+        - Generated with OpenAPI Generator 7.14.0
+        - Source: ${{ github.repository }}@${{ github.sha }}"
+        
+        # Push changes
+        git push origin master
+        
+        # Create and push tag if creating release
+        if [ "${{ github.event.inputs.create_release }}" = "true" ]; then
+          git tag -a "v${{ github.event.inputs.version }}" -m "Release version ${{ github.event.inputs.version }}"
+          git push origin "v${{ github.event.inputs.version }}"
+        fi
+    
+    - name: Create GitHub Release
+      if: github.event.inputs.create_release == 'true'
+      uses: actions/create-release@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.PYTHON_SDK_TOKEN }}
+      with:
+        tag_name: v${{ github.event.inputs.version }}
+        release_name: Release v${{ github.event.inputs.version }}
+        body: |
+          ## Python SDK Release v${{ github.event.inputs.version }}
+          
+          Generated from [morpheus-openapi](${{ github.server_url }}/${{ github.repository }}) repository.
+          
+          ### Changes
+          - Updated to version ${{ github.event.inputs.version }}
+          - Generated with OpenAPI Generator 7.14.0
+          
+          ### Installation
+          ```bash
+          pip install morpheus-python-sdk==${{ github.event.inputs.version }}
+          ```
+          
+          ### Source
+          - Repository: ${{ github.repository }}
+          - Commit: ${{ github.sha }}
+        draft: false
+        prerelease: false
+        owner: hpe-hcss
+        repo: morpheus-python-sdk

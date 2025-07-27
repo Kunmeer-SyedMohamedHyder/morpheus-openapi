@@ -12,6 +12,9 @@ task :build => ["docker:build"]
 desc "Generates a Python client with OpenAPI Generator via docker"
 task :generate => ["docker:generate"]
 
+desc "Generates a Python client with OpenAPI Generator via docker (alias for generate)"
+task :"python-client" => [:generate]
+
 namespace "docker" do
 
   # Ensure docker is installed
@@ -49,6 +52,8 @@ namespace "docker" do
 
   # desc "Executes openapitools/openapi-generator-cli using docker"
   task :generate => [:is_installed, :build] do
+    puts "Generating Python SDK..."
+    
     cd PROJECT_ROOT, verbose: false do
       sh("mkdir -p generated/morpheus-python-sdk && \
       cp .openapi-generator/.openapi-generator-ignore generated/morpheus-python-sdk && \
@@ -56,7 +61,9 @@ namespace "docker" do
       -e JAVA_OPTS=-DmaxYamlCodePoints=999999999 \
       openapitools/openapi-generator-cli \
       generate -g python -i /spec/bundled.yaml -o /spec/generated/morpheus-python-sdk \
-      -c /spec/.openapi-generator/python-config.json")
+      -c /spec/.openapi-generator/python-config.yaml")
+      
+      puts "Python SDK generated successfully"
     end
   end
 

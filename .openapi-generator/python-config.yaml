@@ -1,0 +1,15 @@
+packageName: morpheus
+projectName: morpheus-python-sdk
+packageVersion: 1.0.0
+packageUrl: https://github.com/hpe-hcss/morpheus-python-sdk
+packageAuthor: Kunmeer-SyedMohamedHyder
+packageEmail: syed-mohamed-hyder.kunmeer@hpe.com
+packageDescription: Python SDK for Morpheus API - A powerful cloud management tool that provides provisioning, monitoring, logging, backups, and application deployment strategies.
+packageTitle: Morpheus Python SDK
+packageLicense: Apache-2.0
+gitUserId: hpe-hcss
+gitRepoId: morpheus-python-sdk
+library: urllib3
+generateSourceCodeOnly: false
+hideGenerationTimestamp: true
+disallowAdditionalPropertiesIfNotPresent: false
