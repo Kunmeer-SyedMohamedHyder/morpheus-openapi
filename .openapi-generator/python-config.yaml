@@ -1,6 +1,6 @@
 packageName: morpheus
 projectName: morpheus-python-sdk
-packageVersion: 1.0.0
+packageVersion: 0.0.2
 packageUrl: https://github.com/hpe-hcss/morpheus-python-sdk
 packageAuthor: Kunmeer-SyedMohamedHyder
 packageEmail: syed-mohamed-hyder.kunmeer@hpe.com
